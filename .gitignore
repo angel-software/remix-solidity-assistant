@@ -1,0 +1,83 @@
+# ==========================================
+# 1. Dependencias de Node.js (Frontend y Backend)
+# ==========================================
+node_modules/
+jspm_packages/
+web_modules/
+
+# ==========================================
+# 2. Archivos de Compilación y Salida (Builds)
+# ==========================================
+# Salida de Vite
+dist/
+dist-ssr/
+
+# Salida de TypeScript (si compilas el backend a JS)
+build/
+out/
+
+# Archivos de caché de TypeScript y empaquetadores
+*.tsbuildinfo
+.eslintcache
+.vite/
+
+# ==========================================
+# 3. Variables de Entorno y Secretos (¡CRÍTICO!)
+# ==========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env.json
+
+# ==========================================
+# 4. Base de Datos y Modelos Locales (ChromaDB / Ollama / Xenova)
+# ==========================================
+# Datos locales de ChromaDB (si los guardas en una carpeta local mediante Docker)
+chroma_data/
+.chroma/
+
+# Modelos locales de Xenova/Transformers descargados en el backend
+/src/models/
+/backend/models/
+.cache/
+
+# Archivos de base de datos SQLite internos si se generan
+*.db
+*.sqlite
+
+# ==========================================
+# 5. Archivos del Sistema Operativo y Editores
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editores (VS Code, WebStorm, etc.)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# ==========================================
+# 6. Docker y Logs
+# ==========================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Opcional: ignorar datos persistidos de Docker si mapeas volúmenes locales
+docker_volumes/

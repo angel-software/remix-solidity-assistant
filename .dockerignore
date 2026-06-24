@@ -1,0 +1,19 @@
+# Git and History
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+docs/
+README.md
+
+# Local Persistent Container Data (CRITICAL)
+chroma_data/
+ollama_data/
+backend_data/
+
+# Local Dependencies and Build Outputs
+**/node_modules
+**/dist
+**/build
+.env

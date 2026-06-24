@@ -1,0 +1,81 @@
+/* App main canvas boundary control */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Terminate global viewport scrolling */
+  box-sizing: border-box;
+  background-color: var(--background-main, #1a1a1a);
+  color: var(--text-main, #e6e6e6);
+  font-family: var(--font-family, sans-serif);
+}
+
+/* Header controller layout for workspace processing */
+#CheckAPI {
+  flex-shrink: 0; 
+  padding: 12px;
+  border-bottom: 1px solid var(--border, #333);
+  background-color: var(--background-panel, #222);
+}
+
+#CheckSendProjectFiles button {
+  background-color: var(--primary, #007aa6);
+  color: var(--primary-text, #ffffff);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+#CheckSendProjectFiles button:hover {
+  opacity: 0.85;
+}
+
+#CheckSendProjectFiles p {
+  margin: 6px 0 0 0;
+  font-size: 0.8rem;
+  color: var(--text-disabled, #888);
+}
+
+.loading-spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--text-muted, #aaa);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: chat-spin 0.8s linear infinite;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.status-txt {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-info, #00a3e0);
+}
+
+.response-txt {
+  color: var(--text-success, #2ea44f);
+  font-weight: bold;
+}
+
+/* ChatModel core structural frame injection */
+#chatModel {
+  flex: 1; 
+  min-height: 0; 
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes chat-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

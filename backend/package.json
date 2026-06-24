@@ -1,0 +1,27 @@
+{
+  "name": "remix-solidity-assistant-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
+    "@solidity-parser/parser": "^0.20.2",
+    "axios": "^1.13.2",
+    "chromadb": "^3.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "js-tiktoken": "^1.0.21",
+    "ollama": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.19.41",
+    "tsx": "^4.19.3",
+    "typescript": "^5.9.3"
+  }
+}

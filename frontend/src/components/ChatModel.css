@@ -1,0 +1,170 @@
+.chat-model-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 140px);
+  box-sizing: border-box;
+  background-color: var(--background, #1a1a1a);
+  color: var(--text, #fff);
+  font-family: var(--font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border, #333);
+  background-color: var(--opacity-20, rgba(255, 255, 255, 0.02));
+  font-size: 0.8rem;
+  color: var(--text-muted, #aaa);
+  flex-shrink: 0;
+}
+
+.chat-context-badge {
+  color: var(--primary, #007acc);
+  font-weight: 600;
+}
+
+.chat-messages-area {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Filas de mensajes */
+.message-row {
+  display: flex;
+  width: 100%;
+}
+
+.message-row.user {
+  justify-content: flex-end;
+}
+
+.message-row.assistant {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.message-row.user .message-bubble {
+  background-color: var(--primary, #007acc);
+  color: var(--primary-text, #fff);
+  border-bottom-right-radius: 1px;
+}
+
+.message-row.assistant .message-bubble {
+  background-color: var(--info-background, #2a2a2a);
+  color: var(--text, #fff);
+  border: 1px solid var(--border, #444);
+  border-bottom-left-radius: 1px;
+}
+
+.chat-loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 0.8rem;
+  color: var(--text-muted, #aaa);
+  font-style: italic;
+}
+
+.chat-spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--text-muted, #aaa);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: chat-spin 0.8s linear infinite;
+}
+
+@keyframes chat-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Bloque inferior del Input clavado abajo del todo */
+.chat-input-area {
+  padding: 12px;
+  border-top: 1px solid var(--border, #333);
+  background-color: var(--opacity-10, rgba(255, 255, 255, 0.01));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.chat-input-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input-area textarea {
+  flex: 1;
+  resize: none;
+  background-color: var(--input-background, #222);
+  color: var(--input-text, #fff);
+  border: 1px solid var(--input-border, #444);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.chat-input-area textarea:focus {
+  outline: none;
+  border-color: var(--primary, #007acc);
+}
+
+.chat-send-btn {
+  background-color: var(--primary, #007acc);
+  color: var(--primary-text, #fff);
+  border: none;
+  border-radius: 4px;
+  padding: 0 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.chat-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-footer-model {
+  font-size: 0.7rem;
+  color: var(--text-muted, #888);
+  text-align: left;
+  padding-left: 2px;
+}
+
+/* Clickable source code interactive markdown markers */
+.reference-link-btn {
+  display: inline;
+  cursor: pointer;
+  color: var(--primary, #007acc);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 2px;
+  font: inherit;
+  font-weight: bold;
+  pointer-events: auto;
+}
+
+.reference-link-btn:hover {
+  color: var(--info, #005999);
+}

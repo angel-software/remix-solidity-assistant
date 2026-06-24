@@ -1,0 +1,11 @@
+{
+  "name": "IA Assistance",
+  "displayName": "My Remix Plugin",
+  "version": "1.0.0",
+  "url": "http://localhost:5173",
+  "description": "Un asistente para comprender mejor el contexto del proyecto",
+  "icon": "https://via.placeholder.com/64",
+  "location": "sidePanel",
+  "documentation": "https://example.com/docs",
+  "methods": []
+}

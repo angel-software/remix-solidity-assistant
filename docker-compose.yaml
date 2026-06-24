@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  # 1. Chormadb vectorial database
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: solidity_chroma
+    ports:
+      - "${CHROMADB_PORT}:${CHROMADB_PORT}"
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
+    networks:
+      - solidity_network
+
+  # 2. Ollama IA Engine to use LLM
+  ollama:
+    image: ollama/ollama:latest
+    container_name: solidity_ollama
+    ports:
+      - "${OLLAMA_PORT}:${OLLAMA_PORT}"
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
+      - OLLAMA_KEEP_ALIVE=-1
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    networks:
+      - solidity_network
+
+  # 2.5 Ollama Preloader (Downloads the model automatically on first startup)
+  ollama-preloader:
+    image: ollama/ollama:latest
+    container_name: solidity_ollama_preloader
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - solidity_network
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_HOST=ollama:${OLLAMA_PORT}
+      - OLLAMA_MODEL=${OLLAMA_MODEL}
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - |
+        echo "Waiting for Ollama server to boot up..."
+        sleep 5
+        echo "Attempting to pull model ${OLLAMA_MODEL} from network..."
+        # El bucle intentará descargar el modelo de forma iterativa si da error de conexión inicial
+        until ollama pull ${OLLAMA_MODEL}; do
+          echo "Ollama server is not fully ready yet or network issue. Retrying in 3 seconds..."
+          sleep 3
+        done
+        echo "Model successfully preloaded!"
+  # 3. Backend (Nodejs + TS): Needed conection to Chroma and Ollama
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+    container_name: solidity_backend
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT}
+      - CHROMADB_URL=${CHROMADB_URL}
+      - OLLAMA_URL=${OLLAMA_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - OLLAMA_MODEL=${OLLAMA_MODEL}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+    volumes:
+      - ./backend/src:/app/src
+      - backend_data:/app/models_storage
+    depends_on:
+      chromadb:
+        condition: service_started
+      ollama-preloader:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    networks:
+      - solidity_network
+
+  # 4. Frontend (React + Vite + TS) : Need conection to Backend
+  frontend:
+    build: ./frontend
+    container_name: solidity_frontend
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    environment:
+      - VITE_BACKEND_URL=${BACKEND_URL}
+      - VITE_OLLAMA_MODEL=${OLLAMA_MODEL}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - solidity_network
+
+volumes:
+  chroma_data:
+  ollama_data:
+  backend_data:
+
+networks:
+  solidity_network:
+    driver: bridge

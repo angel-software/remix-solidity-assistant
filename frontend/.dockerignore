@@ -1,0 +1,15 @@
+# Local dependencies (Prevent Alpine Linux architecture conflicts)
+node_modules/
+
+# Production builds and cache
+dist/
+dist-ssr/
+.local/
+.vite/
+
+# System logs and editor configurations
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
